@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>ExCD</title>
+    </head>
+    <body>
+        <!-- <script data-main="scripts/require" src="scripts/require.js"></script> -->
+        <div id="showImage">
+            <div id="test"> </div>
+            <img alt="New" src="/images/new Initial.png" id="new" width="500" height="auto">
+            <img alt="loading" src="images/Loading.png" id="loading" width="500" height="auto">
+            <img alt="finish" src="images/Finish.png" id="finish" width="500" height="auto">
+            <img alt="uploading" src="images/Uploading.png" id="uploading" width="500" height="auto">
+        </div>
+        <script type="text/javascript">
+        const checkStatusTimer = setInterval(checkStatus, 1000);
+        function checkStatus(){
+            console.log("checkStatus");
+            let url="http://localhost:8080/getStatus";
+            fetch(url).then(response => response.json)
+            .then( (result) => {
+                console.log('success:', result)
+                let div=document.getElementById('test');
+                div.innerHTML=`title: ${result.title}`;
+            })
+            .catch(error => console.log('error:', error));
+            window.location.reload();
+        }
+        // clearInterval(checkStatusTimer);
+        </script>
+        <!-- <script  src="scripts/app.js"></script> -->
+    </body>
+</html>
+<style>
+div {
+    text-align: center;
+}
+#loading{
+    display: block;
+}
+#loading{
+    display: none;
+}
+#finish{
+    display: none;
+}
+#uploading{
+    display: none;
+}
+</style>
